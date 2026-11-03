@@ -37,10 +37,11 @@ select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(-
 .nav{position:fixed;top:50%;transform:translateY(-50%);z-index:5;width:42px;height:42px;padding:0 0 3px;font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;background:var(--bg)}
 #prev{left:max(6px,env(safe-area-inset-left,0px))}
 #next{right:max(6px,env(safe-area-inset-right,0px))}
+.logo{height:30px;width:auto;vertical-align:middle;margin-right:8px;border-radius:6px}
 </style>
 </head>
 <body>
-<header><span>हनुमान चालीसा · Hanuman Chalisa</span><label><span id="pos"></span> <select id="jump" aria-label="Jump to verse"></select></label><div id="bar"></div></header>
+<header><span><img class="logo" src="images/4.jpg" alt="" onerror="this.remove()">हनुमान चालीसा · Hanuman Chalisa</span><label><span id="pos"></span> <select id="jump" aria-label="Jump to verse"></select></label><div id="bar"></div></header>
 <main id="main" tabindex="0" aria-live="polite"></main>
 <!--<footer><button id="prev">← पिछला / Prev</button><button id="next">अगला / Next →</button></footer>-->
 <button id="prev" class="nav" aria-label="पिछला / Previous">‹</button><button id="next" class="nav" aria-label="अगला / Next">›</button>
