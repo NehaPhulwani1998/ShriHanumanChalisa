@@ -114,7 +114,7 @@ for(var k=0;k<n;k++){var o=document.createElement("option");o.value=k;o.textCont
 function show(k){
  i=Math.max(0,Math.min(n-1,k));
  if(i==0){m.innerHTML='<div class="slide title">'+art(0)+'<h1 class="hi">श्री हनुमान चालीसा</h1><p class="ro">Shri Hanuman Chalisa</p><img class="pic" src="images/startImage.png" ></div>'}
- else{var d=D[i-1];m.innerHTML='<div class="slide"><div class="tag">'+d[0]+'</div><p class="hi">'+br(d[1])+'</p><p class="ro">'+br(d[2])+'</p><p class="mn">'+d[3].replace(/\n/g, '<br>')+'</p>'+(d[4]?'<img class="pic" src="'+d[4]+'" alt="">':'')+'</div>'}
+ else{var d=D[i-1];m.innerHTML='<div class="slide"><div class="tag">'+d[0]+'</div><p class="hi">'+br(d[1])+'</p><p class="ro">'+br(d[2])+'</p><p class="mn">'+d[3].replace(/\n/g, '<br>')+'</p>'+(d[4]?'<img class="pic" src="'+d[4]+'" alt="">':'')+(i==n-1?'<p class="cr">Made with devotion by Neha Phulwani 🙏</p>':'')+'</div>'}
  m.scrollTop=0;sel.value=i;
  document.getElementById("pos").textContent=i+" / "+(n-1);
  document.getElementById("bar").style.width=(i/(n-1)*100)+"%";
