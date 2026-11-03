@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>श्रीहनुमानचालीसा</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Mukta:wght@400&display=swap">
+<style>
+:root{--bg:#fff6e6;--ink:#2a1608;--hi:#b3380a;--mute:#6b4a30;--line:#e2b87a;--sun:#ffb347;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15112e;--ink:#f3ead8;--hi:#ffb02e;--mute:#b9aed0;--line:#4a3f78;--sun:#ff7a1a}}
+:root[data-theme="dark"]{--bg:#15112e;--ink:#f3ead8;--hi:#ffb02e;--mute:#b9aed0;--line:#4a3f78;--sun:#ff7a1a}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Mukta",system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden}
+body::before{content:"";position:fixed;left:50%;top:-18vmin;width:60vmin;height:60vmin;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,var(--sun),transparent 68%);opacity:.28;pointer-events:none}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-size:14px;color:var(--mute);position:relative}
+#bar{position:absolute;left:0;bottom:0;height:3px;background:var(--hi);transition:width .3s}
+main{flex:1;overflow-y:auto;display:flex;position:relative}
+.slide{margin:auto;width:100%;max-width:760px;padding:20px 22px 28px;text-align:center}
+.tag{color:var(--mute);font-size:15px;margin-bottom:14px}
+.hi{font-family:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif;color:var(--hi);font-size:clamp(25px,5.4vw,40px);line-height:1.6;margin:0}
+.ro{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:clamp(18px,3.4vw,23px);line-height:1.5;margin:18px 0 0}
+.mn{border-top:1px solid var(--line);margin:20px auto 0;padding-top:16px;max-width:620px;font-size:clamp(16px,2.6vw,18px);line-height:1.65}
+.title .hi{font-size:clamp(40px,10vw,76px)}
+.art{display:block;margin:0 auto 10px;width:clamp(110px,26vw,170px);height:auto;overflow:visible}
+.art .s{fill:none;stroke:var(--hi);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.art .f{fill:var(--sun)}
+footer{display:flex;justify-content:space-between;gap:10px;padding:12px 18px 16px}
+button{font:inherit;font-size:16px;color:var(--ink);background:none;border:1px solid var(--line);border-radius:999px;padding:9px 22px;cursor:pointer}
+button:hover{border-color:var(--hi)}
+button:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+button:disabled{opacity:.35;cursor:default}
+select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:4px 6px;max-width:44vw}
+.pic1{display:block;width:min(100%,380px);object-fit:contain;object-position:center;margin:20px auto 0;border-radius:12px;border:1px solid var(--line)}
+.pic{display:block;width:min(100%,380px);aspect-ratio:1/1;object-fit:contain;object-position:center;background:color-mix(in srgb,var(--line) 25%,transparent);margin:20px auto 0;border-radius:12px;border:1px solid var(--line)}
+.nav{position:fixed;top:50%;transform:translateY(-50%);z-index:5;width:42px;height:42px;padding:0 0 3px;font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+#prev{left:max(6px,env(safe-area-inset-left,0px))}
+#next{right:max(6px,env(safe-area-inset-right,0px))}
+</style>
+</head>
+<body>
+<header><span>हनुमान चालीसा · Hanuman Chalisa</span><label><span id="pos"></span> <select id="jump" aria-label="Jump to verse"></select></label><div id="bar"></div></header>
+<main id="main" tabindex="0" aria-live="polite"></main>
+<!--<footer><button id="prev">← पिछला / Prev</button><button id="next">अगला / Next →</button></footer>-->
+<button id="prev" class="nav" aria-label="पिछला / Previous">‹</button><button id="next" class="nav" aria-label="अगला / Next">›</button>
+<script>
+var D=[
+["दोहा 1","श्रीगुरु चरन सरोज रज, निज मनु मुकुरु सुधारि।|बरनउँ रघुबर बिमल जसु, जो दायकु फल चारि॥","Shri Guru charan saroj raj, nij manu mukuru sudhari |Baranau Raghubar bimal jasu, jo dayaku phal chari","After cleansing my mind with the dust of my Guru's lotus feet, I describe Lord Rama's pure glory, which grants the four goals of human life: Dharma (righteousness), Artha (prosperity), Kama (fulfilment) and Moksha (liberation).\n <strong>Life lesson:</strong> Before seeking knowledge, make your mind humble, pure and receptive.", "images/D1.jpg"],
+["दोहा 2","बुद्धिहीन तनु जानिके, सुमिरौं पवन-कुमार।|बल बुद्धि बिद्या देहु मोहिं, हरहु कलेस बिकार॥","Buddhiheen tanu jaanike, sumirau Pavan-kumar |Bal buddhi vidya dehu mohi, harahu kalesh bikaar","Knowing my limitations, I remember Lord Hanuman. Please bless me with strength, wisdom and knowledge, and remove my troubles and negative qualities.\n <strong>Life lesson:</strong> True strength is not just physical power. It is the combination of courage, wisdom and self-control.", "images/D2.png"],
+["चौपाई 1","जय हनुमान ज्ञान गुन सागर।|जय कपीस तिहुँ लोक उजागर॥","Jai Hanuman gyan gun sagar |Jai Kapis tihun lok ujagar","Victory to Lord Hanuman, the ocean of knowledge and virtues. Victory to the king of monkeys, whose glory shines throughout all three worlds (heaven, earth and the netherworld).\n<strong>Deeper message:</strong> Hanuman represents unlimited knowledge, goodness and devotion. His greatness is recognised everywhere.", "images/1.jpg"],
+["चौपाई 2","राम दूत अतुलित बल धामा।|अंजनि-पुत्र पवनसुत नामा॥","Ram doot atulit bal dhama |Anjani-putra Pavansut nama","You are Lord Rama's messenger and the embodiment of incomparable strength. You are known as the son of Mother Anjani and the son of the Wind God, Vayu.\n <strong>Deeper message:</strong> Hanuman's strength is extraordinary, but he uses it in the service of Lord Rama rather than for personal glory.", "images/2.jpg"],
+["चौपाई 3","महाबीर बिक्रम बजरंगी।|कुमति निवार सुमति के संगी॥","Mahabir bikram Bajrangi |Kumati nivar sumati ke sangi","You are a great warrior, immensely powerful and strong like a thunderbolt. You remove wrong thinking and guide people towards good thoughts and wisdom. \n <strong>Deeper message:</strong> Hanuman helps us overcome negative thinking, confusion and poor judgement.", "images/3.jpg"],
+["चौपाई 4","कंचन बरन बिराज सुबेसा।|कानन कुंडल कुंचित केसा॥","Kanchan baran biraj subesa |Kanan kundal kunchit kesa","Your complexion is golden, and you are beautifully dressed. You wear earrings in your ears and have curly hair.\n <strong>Deeper message:</strong> This verse describes Hanuman's divine and magnificent appearance.", "images/4.jpg"],
+["चौपाई 5","हाथ बज्र औ ध्वजा बिराजै।|काँधे मूँज जनेऊ साजै॥","Haath vajra au dhvaja biraje |Kandhe moonj janeu saje","You hold a thunderbolt (Vajra) and a flag in your hands, and a sacred thread made of Munja grass adorns your shoulder.\n <strong>Deeper message:</strong>\n - Vajra represents strength and determination.\n - Flag represents victory and righteousness. \n - Sacred thread represents discipline, duty and spiritual commitment.", "images/5.jpg"],
+["चौपाई 6","शंकर सुवन केसरी नंदन।|तेज प्रताप महा जग बंदन॥","Shankar suvan Kesari nandan |Tej pratap maha jag bandan","You are regarded as an incarnation or spiritual son of Lord Shiva and the beloved son of Kesari. Your brilliance and greatness are worshipped throughout the world.\n <strong>Deeper message:</strong> Hanuman carries divine power, courage and spiritual radiance.", "images/6.jpg"],
+["चौपाई 7","विद्यावान गुनी अति चातुर।|राम काज करिबे को आतुर॥","Vidyavan guni ati chatur |Ram kaj karibe ko aatur","You are knowledgeable, virtuous and extremely intelligent. You are always eager to perform Lord Rama's work.\n <strong>Deeper message:</strong> Knowledge becomes meaningful when we use it for a good purpose. Hanuman teaches us to turn our abilities into service.", "images/7.jpg"],
+["चौपाई 8","प्रभु चरित्र सुनिबे को रसिया।|राम लखन सीता मन बसिया॥","Prabhu charitra sunibe ko rasiya |Ram Lakhan Sita man basiya","You love listening to the stories and glories of Lord Rama. Rama, Lakshmana and Sita always reside in your heart.\n <strong>Deeper message:</strong> Hanuman's heart is filled with devotion. His entire existence revolves around Lord Rama and his family.", "images/8.png"],
+["चौपाई 9","सूक्ष्म रूप धरि सियहिं दिखावा।|बिकट रूप धरि लंक जरावा॥","Sukshma roop dhari Siyahi dikhava |Bikat roop dhari Lank jarava","You took a tiny and gentle form to appear before Mother Sita. Later, you assumed a terrifying and enormous form and burned Lanka.\n <strong>Deeper message:</strong> Hanuman knows when to be gentle and when to be powerful. True strength is knowing how to use it according to the situation.", "images/9.png"],
+["चौपाई 10","भीम रूप धरि असुर सँहारे।|रामचंद्र के काज सँवारे॥","Bhim roop dhari asur sanhare |Ramchandra ke kaj sanvare","You assumed a mighty and fearsome form to destroy demons and successfully completed Lord Rama's tasks.\n <strong>Deeper message:</strong> Courage and determination help us overcome obstacles when working towards a righteous goal.", "images/10.png"],
+["चौपाई 11","लाय सजीवन लखन जियाये।|श्रीरघुबीर हरषि उर लाये॥","Laye sanjivan Lakhan jiyaye |Shri Raghubir harashi ur laye","You brought the Sanjeevani herb and saved Lakshmana's life. Lord Rama was overjoyed and embraced you lovingly.\n <strong>Deeper message:</strong> Hanuman's devotion is demonstrated through action. He does everything possible to save someone in need.", "images/11.png"],
+["चौपाई 12","रघुपति कीन्ही बहुत बड़ाई।|तुम मम प्रिय भरतहि सम भाई॥","Raghupati kinhi bahut badai |Tum mam priya Bharat-hi sam bhai","Lord Rama praised Hanuman greatly and said, “You are as dear to me as my brother Bharat.” \n <strong>Deeper message:</strong> Pure devotion creates a bond that goes beyond blood relationships.", "images/12.png"],
+["चौपाई 13","सहस बदन तुम्हरो जस गावैं।|अस कहि श्रीपति कंठ लगावैं॥","Sahas badan tumharo jas gaavai |As kahi Shripati kanth lagavai","Lord Rama says that Hanuman is so great that even a thousand mouths would not be enough to praise him. Saying this, Lord Rama lovingly hugs Hanuman.\n <strong>Deeper message:</strong>Hanuman's devotion and greatness are beyond words.", "images/13.jpg"],
+["चौपाई 14","सनकादिक ब्रह्मादि मुनीसा।|नारद सारद सहित अहीसा॥","Sanakadik Brahmadi munisa |Narad Sarad sahit Ahisa","Great sages such as Sanaka and others, Lord Brahma, Narada, Goddess Saraswati and Sheshnag all sing your praises.\n <strong>Deeper message:</strong> Even the greatest spiritual beings recognise the greatness of Hanuman's devotion.", "images/14.png"],
+["चौपाई 15","जम कुबेर दिगपाल जहाँ ते।|कबि कोबिद कहि सके कहाँ ते॥","Jam Kuber digpal jahan te |Kavi kovid kahi sake kahan te","Yama, Kubera, the guardians of the directions and great poets and scholars cannot fully describe your greatness.\n <strong>Deeper message:</strong> Divine qualities such as selfless devotion cannot be completely expressed through words.", "images/15.png"],
+["चौपाई 16","तुम उपकार सुग्रीवहिं कीन्हा।|राम मिलाय राज पद दीन्हा॥","Tum upkar Sugrivahin kinha |Ram milaye raj pad dinha","You helped Sugriva by introducing him to Lord Rama, which eventually helped him regain his kingdom.\n <strong>Deeper message:</strong> Sometimes one meaningful connection can completely change someone's life.", "images/16.png"],
+["चौपाई 17","तुम्हरो मंत्र बिभीषन माना।|लंकेस्वर भए सब जग जाना॥","Tumharo mantra Vibhishan mana |Lankeshwar bhaye sab jag jana","Vibhishana followed your advice and sought refuge in Lord Rama. Eventually, he became the king of Lanka.\n <strong>Deeper message:</strong> Good advice, when followed with courage and faith, can change the course of life.", "images/17.png"],
+["चौपाई 18","जुग सहस्र जोजन पर भानू।|लील्यो ताहि मधुर फल जानू॥","Jug sahasra jojan par Bhanu |Leelyo tahi madhur phal janu","As a child, you saw the Sun far away and mistook it for a delicious fruit, so you leapt towards it to eat it.\n <strong>Deeper message:</strong> Hanuman's childhood represents extraordinary energy, innocence and fearlessness.", "images/18.jpg"],
+["चौपाई 19","प्रभु मुद्रिका मेलि मुख माहीं।|जलधि लाँघि गये अचरज नाहीं॥","Prabhu mudrika meli mukh mahi |Jaladhi langhi gaye acharaj nahi","You placed Lord Rama's ring in your mouth and crossed the vast ocean. Considering your strength and devotion, this was no surprise.\n <strong>Deeper message:</strong> When we carry faith and a meaningful purpose, even seemingly impossible challenges become achievable.", "images/19.png"],
+["चौपाई 20","दुर्गम काज जगत के जेते।|सुगम अनुग्रह तुम्हरे तेते॥","Durgam kaj jagat ke jete |Sugam anugraha tumhre tete","All the difficult tasks in this world become easier through your grace.\n <strong>Deeper message:</strong> Faith gives us the courage and confidence to face difficult situations.", "images/20.png"],
+["चौपाई 21","राम दुआरे तुम रखवारे।|होत न आज्ञा बिनु पैसारे॥","Ram duare tum rakhvare |Hot na agya binu paisare","You are the guardian at Lord Rama's door. Without your permission, nobody can enter.\n <strong>Deeper message:</strong> Hanuman is considered the gateway to Lord Rama's grace. Devotion and humility help us move closer to the divine.", "images/21.png"],
+["चौपाई 22","सब सुख लहै तुम्हारी सरना।|तुम रच्छक काहू को डरना॥","Sab sukh lahai tumhari sarna |Tum rakshak kahu ko darna","Those who seek Hanuman Ji's protection receive happiness and peace. When Hanuman Ji protects them, they have no reason to fear. \n <strong>Deeper message:</strong> Trust and faith can give us emotional strength during difficult times.", "images/22.jpg"],
+["चौपाई 23","आपन तेज सम्हारो आपै।|तीनों लोक हाँक तें काँपै॥","Aapan tej samharo aapai |Teenon lok hank te kanpai","Only you can control your immense power. Your mighty roar makes all three worlds tremble.\n <strong>Deeper message:</strong> Having tremendous power is one thing; having the ability to control it is even greater.", "images/23.png"],
+["चौपाई 24","भूत पिसाच निकट नहिं आवै।|महाबीर जब नाम सुनावै॥","Bhoot pisach nikat nahi aavai |Mahabir jab naam sunavai","Evil spirits and negative forces cannot come near when the name of Mahavir Hanuman is remembered.\n <strong>Deeper message:</strong> This verse expresses the protective power of devotion and faith against fear and negativity.", "images/24.jpg"],
+["चौपाई 25","नासै रोग हरै सब पीरा।|जपत निरंतर हनुमत बीरा॥","Nasai rog harai sab peera |Japat nirantar Hanumat beera","Remembering and chanting the name of brave Hanuman is believed to remove suffering, illness and pain.\n <strong>Deeper message:</strong> Prayer can provide hope, mental strength and comfort during difficult periods. It is a spiritual teaching, not a replacement for medical treatment.", "images/25.jpg"],
+["चौपाई 26","संकट तें हनुमान छुड़ावै।|मन क्रम बचन ध्यान जो लावै॥","Sankat te Hanuman chhudavai |Man kram bachan dhyan jo lavai","Hanuman frees those from difficulties who remember him sincerely through their thoughts, actions and words.\n <strong>Deeper message:</strong> True devotion is not limited to chanting. It should reflect in how we think, speak and behave.", "images/26.jpg"],
+["चौपाई 27","सब पर राम तपस्वी राजा।|तिन के काज सकल तुम साजा॥","Sab par Ram tapasvi raja |Tin ke kaj sakal tum saja","Lord Rama is the supreme king and an embodiment of righteousness. You accomplish all his tasks.\n <strong>Deeper message:</strong> Hanuman teaches us the value of dedication towards a noble purpose.", "images/27.jpg"],
+["चौपाई 28","और मनोरथ जो कोई लावै।|सोई अमित जीवन फल पावै॥","Aur manorath jo koi lavai |Soi amit jeevan phal pavai","Anyone who approaches you with sincere wishes and devotion receives abundant blessings and fulfilment in life.\n <strong>Deeper message:</strong> Have faith, keep your intentions pure and work sincerely towards your goals.", "images/28.jpg"],
+["चौपाई 29","चारों जुग परताप तुम्हारा।|है परसिद्ध जगत उजियारा॥","Charon jug partap tumhara |Hai parsiddh jagat ujiyara","Your glory and greatness are celebrated throughout all four ages: Satya Yuga, Treta Yuga, Dwapara Yuga and Kali Yuga.\n <strong>Deeper message:</strong> The qualities Hanuman represents — courage, loyalty, wisdom and devotion — remain valuable in every age.", "images/29.png"],
+["चौपाई 30","साधु संत के तुम रखवारे।|असुर निकंदन राम दुलारे॥","Sadhu sant ke tum rakhvare |Asur nikandan Ram dulare","You protect saints and good people, destroy evil forces and are deeply loved by Lord Rama.\n <strong>Deeper message:</strong> Always stand up for truth and protect those who need help.", "images/30.jpg"],
+["चौपाई 31","अष्ट सिद्धि नौ निधि के दाता।|अस बर दीन जानकी माता॥","Asht siddhi nau nidhi ke data |As bar deen Janki mata","Mother Sita (Janki Mata) blessed you with the power to grant the eight spiritual accomplishments (Ashta Siddhis) and the nine treasures (Nava Nidhis).\n <strong>Deeper message:</strong> Hanuman is believed to possess extraordinary spiritual powers, but he remains humble and devoted.", "images/31.png"],
+["चौपाई 32","राम रसायन तुम्हरे पासा।|सदा रहो रघुपति के दासा॥","Ram rasayan tumhre pasa |Sada raho Raghupati ke dasa","You possess the divine essence of Lord Rama's name and devotion. You will always remain Lord Rama's devoted servant.\n <strong>Deeper message:</strong> Hanuman considers serving Lord Rama the greatest treasure. His devotion is greater than any material achievement.", "images/32.jpg"],
+["चौपाई 33","तुम्हरे भजन राम को पावै।|जनम जनम के दुख बिसरावै॥","Tumhre bhajan Ram ko pavai |Janam janam ke dukh bisravai","Through devotion to you, one can reach Lord Rama and be freed from the sorrows accumulated over many lifetimes.\n <strong>Deeper message:</strong> Hanuman's devotion teaches us that sincere service and surrender can lead us towards spiritual liberation.", "images/33.jpg"],
+["चौपाई 34","अंत काल रघुबर पुर जाई।|जहाँ जन्म हरि-भक्त कहाई॥","Ant kaal Raghubar pur jai |Jahan janma Hari-bhakta kahai","Those who remember and worship Hanuman are blessed to reach Lord Rama's divine abode after death, or, if born again, to be known as devotees of God.\n <strong>Deeper message:</strong> A life filled with devotion, goodness and righteousness leads towards spiritual fulfilment.", "images/34.jpg"],
+["चौपाई 35","और देवता चित्त न धरई।|हनुमत सेइ सर्ब सुख करई॥","Aur devta chitt na dharai |Hanumat sei sarb sukh karai","One who has complete devotion to Hanuman need not worry about worshipping other deities separately to receive blessings and happiness.\n <strong>Deeper message:</strong> This reflects the devotional tradition of complete faith in one's chosen deity. It does not mean disrespecting other gods. (Sabka Malik Ek)", "images/35.jpg"],
+["चौपाई 36","संकट कटै मिटै सब पीरा।|जो सुमिरै हनुमत बलबीरा॥","Sankat katai mitai sab peera |Jo sumirai Hanumat balbeera","Those who remember brave and powerful Hanuman with devotion find relief from difficulties and suffering.\n <strong>Deeper message:</strong> Remembering Hanuman reminds us to face problems with courage instead of giving up.","images/36.jpg"],
+["चौपाई 37","जय जय जय हनुमान गोसाईं।|कृपा करहु गुरु देव की नाईं॥","Jai jai jai Hanuman Gosain |Kripa karahu guru dev ki nain","Victory, victory, victory to Lord Hanuman! Please bless and guide me like a compassionate spiritual teacher.\n <strong>Deeper message:</strong> Hanuman is not only a protector but also a guide who helps us grow spiritually.", "images/37.jpg"],
+["चौपाई 38","जो सत बार पाठ कर कोई।|छूटहि बंदि महा सुख होई॥","Jo sat baar path kar koi |Chhutahi bandi maha sukh hoi","Whoever recites the Hanuman Chalisa a hundred times with devotion is freed from bondage and experiences great happiness.\n <strong>Deeper message:</strong> Repeated prayer and remembrance help develop discipline, faith and inner peace. The verse expresses a devotional promise of liberation.", "images/38.png"],
+["चौपाई 39","जो यह पढ़ै हनुमान चालीसा।|होय सिद्धि साखी गौरीसा॥","Jo yah padhai Hanuman Chalisa |Hoy siddhi sakhi Gaurisa","Whoever reads the Hanuman Chalisa with devotion attains spiritual fulfilment. Lord Shiva himself is the witness to this truth.\n <strong>Deeper message:</strong> Sincere devotion and faith help us become better, stronger and more spiritually aware.", "images/39.png"],
+["चौपाई 40","तुलसीदास सदा हरि चेरा।|कीजै नाथ हृदय महँ डेरा॥","Tulsidas sada Hari chera |Kijai nath hriday mah dera","Tulsidas (the composer of Hanuman Chalisa) says that he is forever a servant of God. O Lord Hanuman, please make your permanent home in my heart.\n <strong>Deeper message:</strong> The ultimate prayer is not for wealth, fame or power. It is to have God reside within our heart.", "images/40.png"],
+["समापन दोहा","पवनतनय संकट हरन, मंगल मूरति रूप।|राम लखन सीता सहित, हृदय बसहु सुर भूप॥","Pavantanay sankat haran, mangal moorti roop |Ram Lakhan Sita sahit, hriday basahu sur bhoop","O son of the Wind God, remover of difficulties and embodiment of auspiciousness, please reside in my heart along with Lord Rama, Lakshmana and Mother Sita. \n <strong>Life lesson:</strong> This is the final prayer of the entire Hanuman Chalisa.\n The devotee is asking Hanuman not just to remove external problems but to fill their heart with the divine presence of Rama, Lakshmana and Sita.","images/lastImage.jpg"]
+];
+var n=D.length+1,i=0,m=document.getElementById("main"),sel=document.getElementById("jump");
+function br(s){return s.split("|").join("<br>")}
+var A={
+lotus:'<path class="s" d="M100 90C84 70 84 50 100 30C116 50 116 70 100 90Z"/><path class="s" d="M100 90C74 86 60 66 66 48C86 52 98 68 100 90Z"/><path class="s" d="M100 90C126 86 140 66 134 48C114 52 102 68 100 90Z"/><path class="s" d="M60 98h80"/>',
+sun:'<circle class="f" cx="100" cy="55" r="24"/><path class="s" d="M100 12v10M100 88v10M57 55h10M133 55h10M70 25l7 7M130 25l-7 7M70 85l7-7M130 85l-7-7"/>',
+mace:'<path class="s" d="M100 102V58M88 102h24"/><circle class="s f" cx="100" cy="36" r="22"/>',
+mountain:'<path class="s" d="M30 100L85 34l30 38 20-22 40 50Z"/><circle class="f" cx="85" cy="22" r="8"/>',
+leap:'<path class="s" d="M20 98q20-12 40 0t40 0 40 0 40 0"/><path class="s" stroke-dasharray="4 6" d="M30 80Q100 -10 170 80"/><circle class="f" cx="100" cy="35" r="7"/>',
+fire:'<path class="s f" d="M100 98C70 98 66 68 84 52C84 64 92 68 96 62C92 48 102 36 108 20C120 44 134 58 128 78C126 90 116 98 100 98Z"/>',
+ring:'<ellipse class="s" cx="100" cy="62" rx="34" ry="28"/><circle class="f" cx="100" cy="32" r="7"/>',
+flag:'<path class="s" d="M70 102V15"/><path class="s f" d="M70 18L140 37L70 56Z"/>',
+bow:'<path class="s" d="M70 12Q130 60 70 108M70 12V108"/><path class="s" d="M40 60h110m-12-8l12 8-12 8"/>',
+heart:'<path class="s f" d="M100 98C40 62 52 22 80 24C92 25 98 32 100 38C102 32 108 25 120 24C148 22 160 62 100 98Z"/>',
+crown:'<path class="s f" d="M55 85L48 40L78 62L100 30L122 62L152 40L145 85ZM55 98h90"/>',
+door:'<path class="s" d="M62 102V50a38 38 0 0 1 76 0V102M50 102h100"/><circle class="f" cx="100" cy="62" r="10"/>',
+diya:'<path class="s" d="M60 72Q100 106 140 72ZM84 100h32"/><path class="s f" d="M100 68C86 58 96 46 100 28C106 46 114 58 100 68Z"/>',
+om:'<text x="100" y="84" text-anchor="middle" font-size="88" style="fill:var(--hi)">ॐ</text>',
+trishul:'<path class="s" d="M100 104V10M72 18v22q0 22 28 22t28-22V18"/>'};
+var M=["lotus","diya"];
+function art(k){return '<svg class="art" viewBox="0 0 200 110" aria-hidden="true">'+A[M[k]]+'</svg>'}
+function lab(k){return k==0?"आरंभ / Start":D[k-1][0]}
+for(var k=0;k<n;k++){var o=document.createElement("option");o.value=k;o.textContent=lab(k);sel.appendChild(o)}
+function show(k){
+ i=Math.max(0,Math.min(n-1,k));
+ if(i==0){m.innerHTML='<div class="slide title">'+art(0)+'<h1 class="hi">श्री हनुमान चालीसा</h1><p class="ro">Shri Hanuman Chalisa</p><img class="pic" src="images/startImage.png" ></div>'}
+ else{var d=D[i-1];m.innerHTML='<div class="slide"><div class="tag">'+d[0]+'</div><p class="hi">'+br(d[1])+'</p><p class="ro">'+br(d[2])+'</p><p class="mn">'+d[3].replace(/\n/g, '<br>')+'</p>'+(d[4]?'<img class="pic" src="'+d[4]+'" alt="">':'')+'</div>'}
+ m.scrollTop=0;sel.value=i;
+ document.getElementById("pos").textContent=i+" / "+(n-1);
+ document.getElementById("bar").style.width=(i/(n-1)*100)+"%";
+ document.getElementById("prev").disabled=i==0;document.getElementById("next").disabled=i==n-1;
+ try{history.replaceState(null,"","#"+i)}catch(e){}
+}
+document.getElementById("prev").onclick=function(){show(i-1)};
+document.getElementById("next").onclick=function(){show(i+1)};
+sel.onchange=function(){show(+sel.value)};
+document.addEventListener("keydown",function(e){if(e.target==sel)return;if(e.key=="ArrowRight")show(i+1);if(e.key=="ArrowLeft")show(i-1)});
+var sx=null;
+m.addEventListener("touchstart",function(e){sx=e.touches[0].clientX},{passive:true});
+m.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>60)show(i+(dx<0?1:-1))});
+var h=parseInt((location.hash||"").slice(1),10);show(isNaN(h)?0:h);
+</script>
+</body>
+</html>
